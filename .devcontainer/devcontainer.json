@@ -29,7 +29,7 @@
   },
 
   "remoteEnv": {
-    "AWS_DEFAULT_REGION": "${localEnv:AWS_DEFAULT_REGION}",
+    "AWS_REGION": "${localEnv:AWS_REGION:eu-west-1}",
     "AWS_PROFILE": "${localEnv:AWS_PROFILE}",
     "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}"
   },
