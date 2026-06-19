@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 license = { text = "MIT" }
 authors = [
-    { name = "Mario Scalas", email = "mario@example.com" }
+    { name = "Mario Scalas", email = "mario.scalas+github@gmail.com" }
 ]
 dependencies = [
     "boto3>=1.43.0",
