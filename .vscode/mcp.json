@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"strands-agents-mcp-server": {
+			"type": "stdio",
+			"command": "uvx",
+			"args": [
+				"strands-agents-mcp-server"
+			]
+		}
+	},
+	"inputs": []
+}
