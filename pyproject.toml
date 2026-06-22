@@ -130,10 +130,13 @@ ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["src"]
+# Add paths here to exclude them from the coverage report.
+# Useful for exploratory/experimental packages not yet covered by tests.
 omit = [
     "tests/*",
     "**/__pycache__/*",
     "**/.venv/*",
+    "src/my_strands_agents/simple/*",
 ]
 
 [tool.coverage.report]
