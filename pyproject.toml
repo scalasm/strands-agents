@@ -136,7 +136,7 @@ omit = [
     "tests/*",
     "**/__pycache__/*",
     "**/.venv/*",
-    "src/my_strands_agents/simple/*",
+    "**/my_strands_agents/simple/*",
 ]
 
 [tool.coverage.report]
