@@ -32,7 +32,7 @@ dev = [
 [project.scripts]
 hello = "my_strands_agents.hello_world:app"
 simple_agent = "my_strands_agents.simple.agent:app"
-
+research_agent = "my_strands_agents.patterns.research:app"
 
 [tool.uv]
 package = true
