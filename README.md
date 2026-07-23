@@ -125,12 +125,12 @@ strands-agents/
 │   ├── unit/                 # Unit tests (fast, isolated)
 │   ├── integration/          # Integration tests (local services)
 │   └── e2e/                  # End-to-end tests (AWS Bedrock required)
-├── docs/
-│   └── CODING_CONVENTIONS.md # Coding standards
-├── .devcontainer/            # VS Code devcontainer config (with AWS CLI)
 ├── .github/
+│   ├── instructions/
+│   │   └── coding-python.instructions.md # Python coding instructions
 │   └── workflows/
 │       └── ci.yml            # CI/CD pipeline
+├── .devcontainer/            # VS Code devcontainer config (with AWS CLI)
 ├── pyproject.toml            # Project configuration
 ├── Makefile                  # Development tasks
 └── README.md
@@ -154,7 +154,7 @@ Enable model access for Claude Sonnet 4 in the [Amazon Bedrock console](https://
 
 ## Documentation
 
-- [Coding Conventions](docs/CODING_CONVENTIONS.md)
+- [Python Coding Instructions](.github/instructions/coding-python.instructions.md)
 - [Strands Agents SDK](https://strandsagents.com/docs/user-guide/quickstart/python/)
 
 ## Testing Strategy

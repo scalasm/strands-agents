@@ -52,64 +52,13 @@ Strands Agents defaults to **Amazon Bedrock** (Claude Sonnet 4). Credentials are
 
 Enable model access in Amazon Bedrock for `anthropic.claude-sonnet-4` in your target region before running agents.
 
-## Code Quality Standards
+## Python Coding Guidance
 
-### Type Hints (MANDATORY)
-**All functions and methods MUST have complete type hints.** Enforced by mypy with `disallow_untyped_defs = true`.
+Detailed Python conventions and patterns now live in:
 
-```python
-# ✅ CORRECT
-def process_items(items: list[str], limit: int = 10) -> dict[str, int]:
-    """Process items and return counts."""
-    return {item: len(item) for item in items[:limit]}
+- [`.github/instructions/coding-python.instructions.md`](.github/instructions/coding-python.instructions.md)
 
-# ❌ WRONG - will fail mypy
-def process_items(items, limit=10):
-    return {item: len(item) for item in items[:limit]}
-```
-
-- Use built-in generics: `list[T]`, `dict[K, V]` (not `List`, `Dict` from typing)
-- Explicit `None` return types: `-> None` for functions without return values
-- Use `| None` instead of `Optional[T]` (Python 3.10+ style)
-- Import from `collections.abc` for abstract types: `Sequence`, `Iterable`, `Mapping`
-
-### Formatting & Linting
-- **Line length:** 128 characters max
-- **Quotes:** Double quotes (`"`) for strings
-- **Import order:** Automatic via ruff's isort integration
-
-### Code Style Principles
-1. **No magic numbers** - Use named constants (ALL_CAPS)
-2. **Explicit over implicit** - Clear variable/function names
-3. **Type hints everywhere** - Function signatures must be typed
-4. **Docstrings for public APIs** - Use Google-style docstrings
-5. **DRY (Don't Repeat Yourself)** - Extract common patterns
-
-## Testing Strategy
-
-### Three-Tier Test Organization
-```
-tests/
-├── unit/           # Fast, isolated, no external dependencies
-├── integration/    # Requires local services
-└── e2e/            # Requires AWS Bedrock (runs on main branch only)
-```
-
-### Coverage Requirements
-- **Minimum 80% coverage** enforced by CI
-- Command: `make coverage` for detailed HTML report
-
-### Mocking Agents in Unit Tests
-Mock the `Agent` class to avoid hitting Bedrock in unit tests:
-```python
-from unittest.mock import MagicMock, patch
-
-def test_my_agent_logic() -> None:
-    with patch("my_strands_agents.my_module.Agent") as mock_agent_class:
-        mock_instance = MagicMock()
-        mock_agent_class.return_value = mock_instance
-        # ... test your code
-```
+Use that file for type hints, naming, imports, docstrings, error handling, testing patterns, and style/tool expectations.
 
 ## Project Structure
 
@@ -125,9 +74,9 @@ strands-agents/
 │   ├── unit/                   # Unit tests (fast, isolated)
 │   ├── integration/            # Integration tests
 │   └── e2e/                    # End-to-end tests (AWS Bedrock required)
-├── docs/
-│   └── CODING_CONVENTIONS.md   # Detailed coding standards
 ├── .github/
+│   ├── instructions/
+│   │   └── coding-python.instructions.md  # Python coding conventions and patterns
 │   └── workflows/ci.yml        # CI/CD pipeline
 ├── pyproject.toml              # Project config, dependencies, tool settings
 ├── Makefile                    # Development commands
@@ -146,17 +95,6 @@ uv python install 3.14         # Install Python 3.14
 
 ## Common Pitfalls & Solutions
 
-### ❌ Pitfall: Untyped function signatures
-```python
-def process(data):  # ❌ mypy will fail
-    return data.upper()
-```
-**Solution:**
-```python
-def process(data: str) -> str:  # ✅
-    return data.upper()
-```
-
 ### ❌ Pitfall: Running commands without `uv run`
 ```bash
 pytest tests/  # ❌ May use wrong Python/venv
@@ -166,13 +104,10 @@ pytest tests/  # ❌ May use wrong Python/venv
 uv run pytest tests/  # ✅
 ```
 
-### ❌ Pitfall: Calling Bedrock in unit tests
-Unit tests must mock `Agent` to avoid real API calls.
-
 ## References
 
 - **Strands Agents docs:** https://strandsagents.com/docs/user-guide/quickstart/python/
-- **Detailed coding standards:** [docs/CODING_CONVENTIONS.md](docs/CODING_CONVENTIONS.md)
+- **Python coding instructions:** [.github/instructions/coding-python.instructions.md](.github/instructions/coding-python.instructions.md)
 - **UV documentation:** https://docs.astral.sh/uv/
 - **Ruff rules:** https://docs.astral.sh/ruff/rules/
 
@@ -180,9 +115,7 @@ Unit tests must mock `Agent` to avoid real API calls.
 
 **Quick Start for AI Agents:**
 1. Use `uv run` prefix for all commands
-2. Add type hints to everything (except test implementations)
+2. Follow Python conventions in `.github/instructions/coding-python.instructions.md`
 3. Run `make format && make lint` before analysis/commits
 4. Maintain 80%+ test coverage
-5. Follow three-tier test structure (unit/integration/e2e)
-6. Run `make ci` before creating PRs
-7. Mock `Agent` in unit tests to avoid Bedrock calls
+5. Run `make ci` before creating PRs
