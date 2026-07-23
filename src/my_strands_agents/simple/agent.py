@@ -1,8 +1,7 @@
-import os
-
 from strands import Agent, tool
-from strands.models.openai import OpenAIModel
 from strands_tools import calculator, current_time
+
+from my_strands_agents.utils.agent_factory import create_openai_model
 
 
 # Define a custom tool as a Python function using the @tool decorator
@@ -30,22 +29,7 @@ def letter_counter(word: str, letter: str) -> int:
 def app() -> None:
     """Run a simple Strands Agents demo."""
     # Create an OpenAI model instance
-
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY environment variable is not set.")
-
-    model = OpenAIModel(
-        client_args={
-            "api_key": api_key,
-        },
-        # **model_config
-        model_id="gpt-4.1",
-        params={
-            "max_tokens": 1000,
-            "temperature": 0.7,
-        },
-    )
+    model = create_openai_model()
 
     # Create an agent with tools from the community-driven strands-tools package
     # as well as our custom letter_counter tool
